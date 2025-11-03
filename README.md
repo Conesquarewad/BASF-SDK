@@ -1,5 +1,5 @@
 # BASF-SDK
-BASF-SDK is an open-source library. Is it created for make an exploit software/script for [BASF](https://www.roblox.com/games/4435144047/) easier
+BASF-SDK is an open-source library. Is it created for make an exploiting software/script for [BASF](https://www.roblox.com/games/4435144047/) easier.
 
 ### Install
 ```luau
@@ -72,5 +72,4 @@ end
 
 BASF.Execute("Claim 5")
 ```
-
-You can learn more from this wiki
+There is no wiki for this repo, so you will have to learn it yourself.
