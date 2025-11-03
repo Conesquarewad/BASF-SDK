@@ -79,29 +79,33 @@ function BASF.GetPlotFromPlayer( Player : Player )
 
 				if Value == Player.Name then
 					Target = Child
-
+					
 					break
 				end
 			end
 		end
 	end
-
+	
 	if Target then
 		local Key = tonumber( Target.Name )
-
+		
 		if Key then
 			return BASF.GetPlotFromNumber( Key )
 		end
 	end
-
+	
 end
 
 function BASF.GetPlotFromNumber( Key : number )
 	local Plot = BASF.Plots[ Key ]
-
+	
 	if Plot then
 		return Plot
 	end
+end
+
+function BASF.GetCurrentPlot()
+	return BASF.GetPlotFromPlayer( Current )
 end
 
 
@@ -180,8 +184,35 @@ function BASF.Pick( Target : Instance )
 	return Color3.fromRGB( 255, 255, 255 )
 end
 
-function BASF.Place( Block : string, Coordinate : CFrame?, Anchored : boolean?, Collision : boolean? )
+function BASF.Paint( Target : Instance, Color : Color3? )
+	Color = Color or Color3.fromRGB( 255, 255, 255 )
 
+	if Color then
+		local Post = BASF.Post
+
+		Post:FireServer("Paint", Target, Color)
+	end
+end
+
+function BASF.Place( Block : string, Coordinate : CFrame?, Anchored : boolean?, Collision : boolean? )
+	Coordinate = Coordinate or CFrame.new( Vector3.new( 0, 15, 0 ) )
+
+	local Get = BASF.Get
+
+	Get:InvokeServer("Place", Block, Coordinate, nil, Collision, Anchored)
+end
+
+function BASF.Delete( Target : Instance )
+	local Post = BASF.Post
+
+	Post:FireServer("Destroy", Target)
+end
+
+
+function BASF.Execute( Input : string )
+	local Post = BASF.Post
+
+	Post:FireServer("Command", Input)
 end
 
 function BASF.Clear()
@@ -190,10 +221,10 @@ function BASF.Clear()
 	Post:FireServer("Clear")
 end
 
-function BASF.Execute( Input : string )
-	local Post = BASF.Post
+function BASF.Claim( Plot : number )
+    local Template = "claim %d"
 
-	Post:FireServer("Command", Input)
+    BASF.Execute( Template:format( Plot ) )
 end
 
 
@@ -238,6 +269,20 @@ function BASF.GetTrusted( Target : Player? )
 end
 
 
+function BASF.GetPVP( Target : Player )
+    local Character = Target.Character
+
+    if Character then
+        local Shield = Character:FindFirstChild("PVPShield")
+
+        if Shield then
+            return true
+        end
+    end
+
+    return false
+end
+
 function BASF.SetPVP( Enable : boolean? )
 	Enable = Enable or true
 
@@ -278,6 +323,7 @@ function BASF.GetData()
 	return Get:InvokeServer("Data")
 end
 
+
 function BASF.GetFavorite()
 	local Get = BASF.Get
 
@@ -295,6 +341,7 @@ function BASF.RemoveFavorite( Block : string )
 
 	Post:FireServer("RemoveFavorite", Block)
 end
+
 
 function BASF.GetBlock()
 	local Building = ReplicatedStorage:WaitForChild("Building")
@@ -346,11 +393,6 @@ function BASF.GetBlock()
 	end
 
 	return Result
-end
-
-
-function BASF.GetCurrentPlot()
-	return BASF.GetPlotFromPlayer( Current )
 end
 
 
