@@ -36,4 +36,41 @@ end
 ```
 
 # Usage
+
+### Example
+```luau
+local BASF do
+    BASF = {}
+
+    local Attempt = 0
+    repeat
+        local Code = nil
+
+        local Success, Result = pcall( function()
+            local Source = game:HttpGet("https://raw.githubusercontent.com/Conesquarewad/BASF-SDK/refs/heads/main/Source.lua")
+
+            if Soruce then
+                Code = loadstring( Source )
+            end
+        end)
+
+        if Success then
+            if Code then
+                BASF = Code()
+            end
+
+            break
+        else
+            Attempt = Attempt + 1
+        end
+    until Attempt > 3
+
+    if Attempt > 3 then
+        warn("Failed to load module")
+    end
+end
+
+BASF.Execute("Claim 5")
+```
+
 You can learn more from this wiki
