@@ -394,6 +394,4 @@ function BASF.GetBlock()
 	return Result
 end
 
-
 return BASF
-
