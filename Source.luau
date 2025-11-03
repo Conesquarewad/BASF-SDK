@@ -61,7 +61,6 @@ function BASF.GetPlayerFromPlot( Base : PVInstance )
 	end
 
 	if Username then
-
 		return Players:FindFirstChild( Username )
 	end
 end
@@ -397,3 +396,4 @@ end
 
 
 return BASF
+
