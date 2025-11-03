@@ -13,7 +13,7 @@ local BASF do
         local Success, Result = pcall( function()
             local Source = game:HttpGet("https://raw.githubusercontent.com/Conesquarewad/BASF-SDK/refs/heads/main/Source.luau")
 
-            if Soruce then
+            if Source then
                 Code = loadstring( Source )
             end
         end)
@@ -49,7 +49,7 @@ local BASF do
         local Success, Result = pcall( function()
             local Source = game:HttpGet("https://raw.githubusercontent.com/Conesquarewad/BASF-SDK/refs/heads/main/Source.luau")
 
-            if Soruce then
+            if Source then
                 Code = loadstring( Source )
             end
         end)
