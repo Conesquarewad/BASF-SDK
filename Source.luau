@@ -2,16 +2,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
 local BASF = {}
-
-do
-	local Expected = 1413575372
-	local Experience = game.GameId
-
-	if Experience ~= Expected then
-		warn("This experience isn't a BASF")
-	end
-end
-
 BASF.Post = ReplicatedStorage:WaitForChild("Post")
 BASF.Get = ReplicatedStorage:WaitForChild("Get")
 
@@ -275,11 +265,11 @@ function BASF.GetPVP( Target : Player )
         local Shield = Character:FindFirstChild("PVPShield")
 
         if Shield then
-            return true
+            return false
         end
     end
 
-    return false
+    return true
 end
 
 function BASF.SetPVP( Enable : boolean? )
@@ -395,3 +385,4 @@ function BASF.GetBlock()
 end
 
 return BASF
+
